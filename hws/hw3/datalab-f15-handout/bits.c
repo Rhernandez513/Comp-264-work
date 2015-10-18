@@ -139,7 +139,7 @@ NOTES:
  *   Rating: 1
  */
 int bitNor(int x, int y) {
-  return 2;
+  return (~x) & (~y);
 }
 /* 
  * bitXor - x^y using only ~ and & 
@@ -149,12 +149,10 @@ int bitNor(int x, int y) {
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-
-
-
-
-  return 2;
-
+  // Functionall equivalent to "x ^ y"
+  int a = x & y;
+  int b = (~x) & (~y);
+  return (~a) & (~b);
 }
 /* 
  * TMax - return maximum two's complement integer 
@@ -163,7 +161,17 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmax(void) {
-  return 2;
+  
+  // This way works fine with gcc, not with ./dlc
+  // because of "illegal cast to unsigned" as defined by assignement
+  // Should also be able to be compiled on a 64 bit machine but still work in 
+  // 32-bit systems
+  //
+  // return (unsigned) (1 >> (~1));
+
+  // May be slower than an implentation agnostic version above, but I am 
+  // running on a 64-bit machine and the requirements define a 32-bit target
+  return (~(1 << 31));
 }
 /* 
  * isNotEqual - return 0 if x == y, and 1 otherwise 
