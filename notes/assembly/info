@@ -1,0 +1,15 @@
+// 2 var add then multiply by scale factor
+
+// Gen Form
+IMM(rb,rc,s) 
+
+// Load Effective address
+// when using leaq doesn't go into memory
+leaq -> M[rb+rc*s]
+
+// 0xD -> 13 in decimal
+leaq 0xD(,%rax,8), %rdx
+// %rdx = (8 * %rax) + 0xD
+
+leaq 7(%rcx,%rax,4),%rdx
+// %rdx = (4%rax) + %rcx + 7
