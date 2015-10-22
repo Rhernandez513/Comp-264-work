@@ -181,6 +181,9 @@ int tmax(void) {
  *   Rating: 2
  */
 int isNotEqual(int x, int y) {
+  // XOR is the same as Not Equal
+  // Double negation ensures logical 0 in the case 
+  // of negative numbers
   return (!!(x^y));
 }
 /* 
@@ -208,7 +211,29 @@ int copyLSB(int x) {
  *   Rating: 3
  */
 int replaceByte(int x, int n, int c) {
-  return 2;
+  // Shift c by the appropriate number of bits to the left 
+  // (if n==0 no shifting, if n==1 shift by 8 etc.)
+  //     (n << 3) <-> n^3
+  //
+  // Create a 32-bit bitmask that will zero the lowest 8 bits of x
+  // then shift this mask by the same amount as the last step
+  //
+  // Perform bitwise AND of the shifted bitmask and x to zero out the 
+  // appropriate bits of x
+  //
+  // Perform bitwise OR (or addition) of the shifted c value and x to replace 
+  // the masked bits of the latter
+
+  //
+  // More readable version
+  //
+  /* n <<= 3; */
+  /* int shift = (c << n); */
+  /* int mask = ~(0xff << n); */
+  /* return (mask & x) | shift; */
+
+  // Less readable, faster version
+  return (~(0xff << (n << 3)) & x) | (c << (n << 3 ));
 }
 /* 
  * isNonNegative - return 1 if x >= 0, return 0 otherwise 
@@ -218,5 +243,8 @@ int replaceByte(int x, int n, int c) {
  *   Rating: 3
  */
 int isNonNegative(int x) {
-  return 2;
+  // Set sign bit to 1, AND with X
+  // Because 1 would mean negative and 0 would mean positive
+  // Negate to return logical 0 or 1
+  return !((1 << 31) & x);
 }
