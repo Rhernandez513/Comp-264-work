@@ -1,3 +1,7 @@
+// By Robert David Hernandez
+// Github: Rhernandez513
+// compiled with: gcc-4.6 -O1 -S
+
 long switch_prob(long x, long n) {
   long result = x;
   switch(n) {
@@ -8,17 +12,12 @@ long switch_prob(long x, long n) {
       result >>= 3;
       break;
     case (65):
-      result = n << 4;
-      result -=  result;
+      result -= (result << 4);
       break;
     case (63):
-      result *= result;
-      break;
+      result *= x;
     case (64):
-      result *= 0;
-      break;
-    default:
-      result *= 75;
+      result += 75;
   }
   return result;
 }

@@ -1,4 +1,7 @@
 prog = hw5.c
 
-program: $(prog)
+all: $(prog)
 	gcc -O1 -S $(prog)
+
+clean:
+	rm hw5.s
